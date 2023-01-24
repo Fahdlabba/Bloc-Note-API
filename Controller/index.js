@@ -3,6 +3,7 @@ const fetchNote=require('./Notes/fetchNote')
 const createUser=require('./User/createUser')
 const login=require('./User/login')
 const logout=require('./User/logout')
+const {resetPswd,verifyUser}=require('../Controller/User/resetPassword')
 
 
 module.exports={
@@ -10,5 +11,7 @@ module.exports={
     fetchNote,
     createUser,
     login,
-    logout
+    logout,
+    resetPswd,
+    verifyUser,
 }

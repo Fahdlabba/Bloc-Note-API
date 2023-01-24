@@ -1,7 +1,8 @@
 const express=require('express')
 const router=express.Router();
-const {login,createUser}=require('../Controller/index')
+const {verifyUser,resetPswd}=require('../Controller/index')
 
-router.route('/').post(login).get(createUser)
+router.post('/reset',resetPswd)
+router.post('/verif',verifyUser)
 
 module.exports=router
