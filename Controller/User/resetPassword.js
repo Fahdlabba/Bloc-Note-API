@@ -40,13 +40,9 @@ const resetPswd=async (req,res)=>{
     }
     await User.updateOne(
         {mail:userMail},
-        {$set:{pswd:newPswd}},
-        (err,result)=>{
-            if(err){
-                console.log(err);
-            }
-    })
-    res.send("Password Updated ! ");
+        {$set:{pswd:newPswd}}
+    )
+    res.redirect('/');
 }
 module.exports={
     verifyUser,

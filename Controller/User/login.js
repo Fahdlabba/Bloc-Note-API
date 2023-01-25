@@ -13,7 +13,7 @@ const login=async(req,res)=>{
     const {userMail,userPswd}=req.body;
     const user=await User.find({mail:userMail ,pswd:userPswd});
     if(user.length===0){
-        return res.send('User Not found ! Verify ur Data ');
+        return res.redirect('/')
     }
     const token=jwt.sign({user},process.env.ACCES_TOKEN,{expiresIn:'1h'});
     res.cookie("token",token,{
