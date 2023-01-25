@@ -4,7 +4,7 @@ const jwt=require('jsonwebtoken')
 const sendCode=require('../mailSender/send')
 require('dotenv').config
 function code(){
-    return Math.floor(Math.random() * 1000)
+    return Math.floor(Math.random() * 10000)
 }
 let sendedCode=0;
 
@@ -19,13 +19,14 @@ const verifyUser=async(req,res)=>{
     if(user.length===0){
         return res.send("User Not Found !");
     }
-    sendCode=code();
-    await sendCode(userMail,sendCode)
-    res.redirect('/reset')
+    sendedCode=code();
+    await sendCode(userMail,sendedCode)
+    res.redirect('Code Send')
 }
 const resetPswd=async (req,res)=>{
     await check('newPswd').isLength({min :8}).run(req);
     await check('code').isLength({min :4}).run(req);
+    const result=validationResult(req)
     if(!result.isEmpty){
         return res.send('Verifier Votre Input ');
     }
@@ -34,7 +35,7 @@ const resetPswd=async (req,res)=>{
     await User.updateOne(
         {mail:userMail}
     )
-    if(code!=sendCode){
+    if(code!=sendedCode){
         return res.send("Invalid Code !")
     }
     await User.updateOne(
