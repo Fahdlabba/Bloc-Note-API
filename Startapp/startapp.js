@@ -4,8 +4,6 @@ const verifyJwt=require('../Middleware/verifUserAuth')
 const db=require('../Database/db')
 const cookieParser = require('cookie-parser')
 const path=require('path')
-const note=require('../Router/noteRouter')
-const reset=require('../Router/userRouter')
 db()
 
 const startApp=(app)=>{
@@ -16,9 +14,9 @@ const startApp=(app)=>{
     app.post('/register',createUser)
     app.post('/',login)
     app.post('/logout',logout)
-    app.use('/forget',reset)
+    app.use('/forget',require('../Router/resetRouter'))
     app.use(verifyJwt)
-    app.use('/note',note)
+    app.use('/note',require('../Router/noteRouter'))
 
     app.listen(3000,()=>{
         console.log('PORT 3000')
